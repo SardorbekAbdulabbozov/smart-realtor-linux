@@ -138,7 +138,7 @@ class ProductPage extends StatelessWidget {
                           ),
                         ),
                         const Text(
-                          'Price',
+                          'Type',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -147,7 +147,7 @@ class ProductPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4, bottom: 8),
                           child: Text(
-                            '\$${logic.moneyFormat(logic.product?.price ?? 0)}${(logic.product?.isRent ?? false) ? '/month' : ''}',
+                            logic.product?.isRent ?? false ? 'Rent' : 'Sell',
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
@@ -180,7 +180,7 @@ class ProductPage extends StatelessWidget {
                           ),
                         ),
                         const Text(
-                          'Type',
+                          'Price',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -189,7 +189,7 @@ class ProductPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4, bottom: 8),
                           child: Text(
-                            logic.product?.isRent ?? false ? 'Rent' : 'Sell',
+                            '\$${logic.moneyFormat(logic.product?.price ?? 0)}${(logic.product?.isRent ?? false) ? '/month' : ''}',
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
