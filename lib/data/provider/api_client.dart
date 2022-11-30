@@ -89,3 +89,4 @@ abstract class ApiClient {
   @GET("classes/Product")
   Future<ProductListResponse> getProductList();
 }
+/*flutter pub run build_runner build --delete-conflicting-outputs*/

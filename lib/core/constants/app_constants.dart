@@ -27,6 +27,7 @@ class AppConstants {
 
   static const spacer = Spacer();
   static const boxWidth4= SizedBox(width: 4);
+  static const boxWidth16= SizedBox(width: 16);
   static const boxHeight4= SizedBox(height: 4);
   static const boxHeight8= SizedBox(height: 8);
   static const boxHeight16 = SizedBox(height: 16);
