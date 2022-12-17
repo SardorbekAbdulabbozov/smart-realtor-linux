@@ -12,15 +12,21 @@ class ProductItem extends StatelessWidget {
   const ProductItem({
     Key? key,
     required this.product,
+    this.onPop,
   }) : super(key: key);
   final Results product;
+  final void Function()? onPop;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: () {
-        Get.toNamed(AppRouteNames.PRODUCT, arguments: product);
+      onTap: () async {
+        final result =
+            await Get.toNamed(AppRouteNames.PRODUCT, arguments: product);
+        if (result == null && onPop != null) {
+          onPop!();
+        }
       },
       borderRadius: AppConstants.borderRadius12,
       child: GlassContainer(
@@ -68,6 +74,7 @@ class ProductItem extends StatelessWidget {
                         ? (product.images ?? ['']).first
                         : '',
                     isRecommended: product.isRecommended ?? false,
+                    isLand: product.isLand ?? false,
                   ),
                   ProductDetailWidget(
                     area: (product.area ?? 0).toString(),
@@ -77,6 +84,7 @@ class ProductItem extends StatelessWidget {
                         .moneyFormat(product.price ?? 0)
                         .toString()),
                     address: product.address ?? '',
+                    isLand: product.isLand ?? false,
                   ),
                 ],
               ),

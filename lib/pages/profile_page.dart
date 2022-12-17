@@ -6,8 +6,8 @@ import 'package:my_home/core/constants/app_constants.dart';
 import 'package:my_home/core/custom_widgets/custom_button.dart';
 import 'package:my_home/core/custom_widgets/profile_item.dart';
 
-class ProfileUsersPage extends StatelessWidget {
-  const ProfileUsersPage({Key? key}) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +51,8 @@ class ProfileUsersPage extends StatelessWidget {
                   icon: Icons.email,
                 ),
                 AppConstants.boxHeight24,
-                /*(logic.localSource.getProfile().isEmailVerified ?? false)
-                    ? AppConstants.boxHeight24
-                    : AppConstants.boxHeight8,*/
                 Visibility(
-                  visible: false
-                  /*!(logic.localSource.getProfile().isEmailVerified ?? false)*/,
+                  visible: false,
                   child: Padding(
                     padding: AppConstants.marginVertical16,
                     child: CustomButton(

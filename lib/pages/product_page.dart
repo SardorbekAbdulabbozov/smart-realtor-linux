@@ -151,20 +151,22 @@ class ProductPage extends StatelessWidget {
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
-                        const Text(
-                          'Number of rooms',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        if (!(logic.product?.isLand ?? false))
+                          const Text(
+                            'Number of rooms',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4, bottom: 8),
-                          child: Text(
-                            logic.product?.numberOfRooms.toString() ?? '',
-                            style: const TextStyle(fontSize: 16),
+                        if (!(logic.product?.isLand ?? false))
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4, bottom: 8),
+                            child: Text(
+                              logic.product?.numberOfRooms.toString() ?? '',
+                              style: const TextStyle(fontSize: 16),
+                            ),
                           ),
-                        ),
                         const Text(
                           'Area',
                           style: TextStyle(
@@ -175,7 +177,7 @@ class ProductPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4, bottom: 8),
                           child: Text(
-                            '${logic.product?.area.toString() ?? ''} sqm',
+                            '${logic.product?.area.toString() ?? ''} ${(logic.product?.isLand ?? false) ? 'acres' : 'sqm'}',
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
@@ -194,36 +196,58 @@ class ProductPage extends StatelessWidget {
                           ),
                         ),
                         AppConstants.boxHeight24,
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: ((((width - 32) / 2) - 8) / 2) - 8,
-                              child: CustomButton(
-                                title: 'Request a visit',
-                                onPressed: () {},
-                                color: Colors.green,
-                                icon: Icons.open_in_new,
+                        Visibility(
+                          visible: !logic.localSource.isAdmin(),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: ((((width - 32) / 2) - 8) / 2) - 8,
+                                child: CustomButton(
+                                  title: 'Request a visit',
+                                  onPressed: () {},
+                                  color: Colors.green,
+                                  icon: Icons.open_in_new,
+                                ),
                               ),
-                            ),
-                            AppConstants.boxWidth16,
-                            SizedBox(
-                              width: ((((width - 32) / 2) - 8) / 2) - 8,
-                              child: CustomButton(
-                                title: 'Add to Wishlist',
-                                icon: Icons.favorite_border_rounded,
-                                onPressed: () {},
+                              AppConstants.boxWidth16,
+                              SizedBox(
+                                width: ((((width - 32) / 2) - 8) / 2) - 8,
+                                child: CustomButton(
+                                  title: 'Add to Wishlist',
+                                  icon: logic.isFavourite
+                                      ? Icons.favorite_rounded
+                                      : Icons.favorite_border_rounded,
+                                  onPressed: logic.toggleFavouriteButton,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top:16),
-                          width: (((width - 32) / 2) - 8),
-                          child: CustomButton(
-                            title: 'Book',
-                            icon: Icons.bookmark_added_rounded,
-                            color: Colors.deepPurpleAccent,
-                            onPressed: () {},
+                        Visibility(
+                          visible: !logic.localSource.isAdmin(),
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            width: (((width - 32) / 2) - 8),
+                            child: CustomButton(
+                              title: !(logic.product?.isBooked ?? false)?'Book':'Already booked',
+                              icon: Icons.bookmark_added_rounded,
+                              color: Colors.deepPurpleAccent,
+                              isEnabled: !(logic.product?.isBooked ?? false),
+                              onPressed: () {},
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: logic.localSource.isAdmin(),
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            width: (((width - 32) / 2) - 8),
+                            child: CustomButton(
+                              title: 'Show visitors list',
+                              icon: Icons.list,
+                              color: Colors.deepOrange,
+                              onPressed: () {},
+                            ),
                           ),
                         ),
                       ],

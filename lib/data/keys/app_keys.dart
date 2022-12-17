@@ -11,4 +11,5 @@ class AppKeys {
   static const EMAIL = "email";
   static const IS_EMAIL_VERIFIED = "isEmailVerified";
   static const SESSION_TOKEN = "session_token";
+  static const FAVOURITE = "favourite";
 }

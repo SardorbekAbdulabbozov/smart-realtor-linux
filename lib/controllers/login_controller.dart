@@ -92,7 +92,7 @@ class LoginController extends BaseController {
           sessionToken: result.sessionToken,
           gender: result.gender,
           isEmailVerified: result.emailVerified,
-          isAdmin: result.isAdmin,
+          isAdmin: (result.email??"").contains("@smart.realtor.com"),
         ),
       );
       // _repository.verifyEmail(email: result.email ?? '');
@@ -147,7 +147,7 @@ class LoginController extends BaseController {
               sessionToken: result.sessionToken,
               gender: result.gender,
               isEmailVerified: result.emailVerified,
-              isAdmin: result.isAdmin,
+              isAdmin: (result.email??"").contains("@smart.realtor.com"),
             ),
           );
           setLoading(false);

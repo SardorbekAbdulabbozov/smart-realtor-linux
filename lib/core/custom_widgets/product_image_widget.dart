@@ -8,9 +8,11 @@ class ProductImageWidget extends StatelessWidget {
     this.imageUrl,
     this.imageCount = 0,
     required this.isRecommended,
+    required this.isLand,
   }) : super(key: key);
   final int imageCount;
   final bool isRecommended;
+  final bool isLand;
   final String? imageUrl;
 
   @override
@@ -60,7 +62,32 @@ class ProductImageWidget extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: imageCount > 1,
+            visible: isLand,
+            child: Positioned(
+              top: 60,
+              left: 0,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.deepPurple,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(4),
+                    bottomRight: Radius.circular(4),
+                  ),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: const Text(
+                  'Land',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: imageCount > 0,
             child: Container(
               width: 30,
               height: 30,

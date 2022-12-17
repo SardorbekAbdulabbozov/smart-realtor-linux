@@ -9,8 +9,10 @@ class ProductDetailWidget extends StatelessWidget {
     required this.rooms,
     required this.price,
     required this.address,
+    required this.isLand,
   }) : super(key: key);
   final bool type;
+  final bool isLand;
   final String area;
   final String rooms;
   final String price;
@@ -26,7 +28,7 @@ class ProductDetailWidget extends StatelessWidget {
           SingleInfoItem(
             icon: Icons.square_foot,
             title: 'Area',
-            content: '$area sqm',
+            content: '$area ${isLand ? 'acres' : 'sqm'}',
             iconColor: Colors.green,
           ),
           SingleInfoItem(
@@ -35,7 +37,7 @@ class ProductDetailWidget extends StatelessWidget {
             content: type ? 'Rent' : 'Sell',
             iconColor: Colors.red,
           ),
-          SingleInfoItem(
+          if(!isLand)SingleInfoItem(
             icon: Icons.meeting_room_sharp,
             title: 'Rooms',
             content: rooms,

@@ -10,6 +10,7 @@ class ProfileController extends BaseController {
 
   Future<void> logout() async {
     await localSource.removeProfile();
+    await hive.clearFavourites();
     await localSource.setIntroShowStatus(value: false);
     Get.offNamed(AppRouteNames.LOGIN);
   }

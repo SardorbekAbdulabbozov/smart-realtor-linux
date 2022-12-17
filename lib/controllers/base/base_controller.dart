@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:my_home/data/hive/hive_database.dart';
 import 'package:my_home/data/local_source/local_source.dart';
 
 abstract class BaseController extends GetxController {
   final LocalSource localSource = LocalSource.getInstance();
+  final HiveDatabase _hive = HiveDatabase.getInstance();
   bool _isLoading = false;
-
-  bool get isLoading => _isLoading;
 
   void showSuccessSnackBar({String message='You have successfully logged in to SmartRealtor'}) {
     if (Get.isSnackbarOpen) return;
@@ -109,4 +109,7 @@ abstract class BaseController extends GetxController {
     result = NumberFormat().format(number).split(",").join(" ");
     return isNegative ? "-$result" : result;
   }
+
+  bool get isLoading => _isLoading;
+  HiveDatabase get hive => _hive;
 }

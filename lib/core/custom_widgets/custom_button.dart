@@ -43,12 +43,12 @@ class CustomButton extends StatelessWidget {
           Text(
             title,
             style: textStyle ??
-                const TextStyle(
-                  color: Colors.white,
+                TextStyle(
+                  color: isEnabled ? Colors.white : const Color(0xFF888888),
                   fontSize: 16,
                 ),
           ),
-          if (icon!=null)
+          if (icon != null)
             Padding(
               padding: const EdgeInsets.only(left: 8),
               child: Icon(

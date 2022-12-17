@@ -1,3 +1,5 @@
+import 'package:my_home/models/hive_models/product.dart';
+
 class ProductListResponse {
   ProductListResponse({this.results});
 
@@ -45,6 +47,8 @@ class Results {
     area = json['area'];
     numberOfRooms = json['numberOfRooms'];
     isRecommended = json['isRecommended'];
+    isLand = json['isLand'];
+    isBooked = json['isBooked'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     description = json['description'];
@@ -59,11 +63,30 @@ class Results {
   dynamic area;
   dynamic numberOfRooms;
   bool? isRecommended;
+  bool? isBooked;
+  bool? isLand;
   String? createdAt;
   String? updatedAt;
   String? description;
   String? address;
   String? title;
+
+  Results.fromProduct(Product product) {
+    objectId = product.objectId;
+    images = product.images ?? [];
+    isRent = product.isRent;
+    price = product.price;
+    area = product.area;
+    numberOfRooms = product.numberOfRooms;
+    isRecommended = product.isRecommended;
+    createdAt = product.createdAt;
+    updatedAt = product.updatedAt;
+    description = product.description;
+    address = product.address;
+    title = product.title;
+    isBooked = product.isBooked;
+    isLand = product.isLand;
+  }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -74,6 +97,8 @@ class Results {
     map['area'] = area;
     map['numberOfRooms'] = numberOfRooms;
     map['isRecommended'] = isRecommended;
+    map['isBooked'] = isBooked;
+    map['isLand'] = isLand;
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     map['description'] = description;
