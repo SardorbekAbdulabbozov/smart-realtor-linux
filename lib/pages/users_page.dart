@@ -7,7 +7,10 @@ class UsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Users Page'),
+        child: Text(
+          'Coming Soon',
+          style: TextStyle(fontSize: 24),
+        ),
       ),
     );
   }

@@ -177,7 +177,7 @@ class ProductPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4, bottom: 8),
                           child: Text(
-                            '${logic.product?.area.toString() ?? ''} ${(logic.product?.isLand ?? false) ? 'acres' : 'sqm'}',
+                            '${logic.product?.area.toString() ?? ''} ${(logic.product?.isLand ?? false) ? 'ac' : 'm\u00B2'}',
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
@@ -191,7 +191,7 @@ class ProductPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4, bottom: 8),
                           child: Text(
-                            '\$${logic.moneyFormat(logic.product?.price ?? 0)}${(logic.product?.isRent ?? false) ? '/month' : ''}',
+                            '\$${AppConstants.moneyFormat(logic.product?.price ?? 0)}${(logic.product?.isRent ?? false) ? '/month' : ''}',
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
@@ -229,7 +229,9 @@ class ProductPage extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 16),
                             width: (((width - 32) / 2) - 8),
                             child: CustomButton(
-                              title: !(logic.product?.isBooked ?? false)?'Book':'Already booked',
+                              title: !(logic.product?.isBooked ?? false)
+                                  ? 'Book'
+                                  : 'Already booked',
                               icon: Icons.bookmark_added_rounded,
                               color: Colors.deepPurpleAccent,
                               isEnabled: !(logic.product?.isBooked ?? false),

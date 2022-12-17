@@ -28,7 +28,7 @@ class ProductDetailWidget extends StatelessWidget {
           SingleInfoItem(
             icon: Icons.square_foot,
             title: 'Area',
-            content: '$area ${isLand ? 'acres' : 'sqm'}',
+            content: '$area ${isLand ? 'ac' : 'm\u00B2'}',
             iconColor: Colors.green,
           ),
           SingleInfoItem(
@@ -37,16 +37,23 @@ class ProductDetailWidget extends StatelessWidget {
             content: type ? 'Rent' : 'Sell',
             iconColor: Colors.red,
           ),
-          if(!isLand)SingleInfoItem(
-            icon: Icons.meeting_room_sharp,
-            title: 'Rooms',
-            content: rooms,
-            iconColor: Colors.black,
-          ),
+          if (!isLand)
+            SingleInfoItem(
+              icon: Icons.meeting_room_sharp,
+              title: 'Rooms',
+              content: rooms,
+              iconColor: Colors.black,
+            ),
           SingleInfoItem(
             icon: Icons.location_on,
             title: 'Address',
-            content: address.isNotEmpty ? address.split(', ')[1] : 'Undefined',
+            content: address.isNotEmpty
+                ? address.split(', ').length >= 2
+                    ? address.split(', ')[1]
+                    : address.split(', ').length == 1
+                        ? address.split(', ')[0]
+                        : 'Undefined'
+                : 'Undefined',
             iconColor: Colors.blue,
           ),
           SingleInfoItem(

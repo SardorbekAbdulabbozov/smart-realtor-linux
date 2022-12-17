@@ -5,6 +5,7 @@ import 'package:dio_retry_plus/dio_retry_plus.dart';
 import 'package:my_home/core/constants/app_constants.dart';
 import 'package:my_home/models/auth/sign_up_request.dart';
 import 'package:my_home/models/auth/sign_up_response.dart';
+import 'package:my_home/models/product/Update_product_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
 import 'package:my_home/models/user/user_details_response.dart';
 import 'package:my_home/models/verification/verify_email_request.dart';
@@ -88,5 +89,17 @@ abstract class ApiClient {
 
   @GET("classes/Product")
   Future<ProductListResponse> getProductList();
+
+  @PUT('classes/Product/{objectId}')
+  Future<UpdateProductResponse> updateProduct(
+    @Path('objectId') String objectId,
+    @Body() Results body,
+  );
+
+  @DELETE('classes/Product/{objectId}')
+  Future<void> deleteProduct(
+    @Path('objectId') String objectId,
+  );
 }
 /*flutter pub run build_runner build --delete-conflicting-outputs*/
+/*flutter pub run build_runner watch --delete-conflicting-outputs*/

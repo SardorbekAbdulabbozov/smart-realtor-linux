@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:my_home/data/hive/hive_database.dart';
 import 'package:my_home/data/local_source/local_source.dart';
 
@@ -100,14 +99,6 @@ abstract class BaseController extends GetxController {
   void setLoading(bool value) {
     _isLoading = value;
     update();
-  }
-
-  String moneyFormat(num number) {
-    final isNegative = number.isNegative;
-    number = number.abs();
-    String result = "0";
-    result = NumberFormat().format(number).split(",").join(" ");
-    return isNegative ? "-$result" : result;
   }
 
   bool get isLoading => _isLoading;

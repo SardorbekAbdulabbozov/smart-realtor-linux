@@ -44,7 +44,9 @@ class CustomButton extends StatelessWidget {
             title,
             style: textStyle ??
                 TextStyle(
-                  color: isEnabled ? Colors.white : const Color(0xFF888888),
+                  color: isEnabled
+                      ? Colors.white
+                      : AppConstants.disabledButtonColor,
                   fontSize: 16,
                 ),
           ),

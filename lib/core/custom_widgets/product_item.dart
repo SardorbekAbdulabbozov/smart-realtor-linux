@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glass_kit/glass_kit.dart';
-import 'package:my_home/controllers/home_controller.dart';
 import 'package:my_home/core/app_routes/app_route_names.dart';
 import 'package:my_home/core/constants/app_constants.dart';
 import 'package:my_home/core/custom_widgets/product_details_widget.dart';
@@ -80,9 +79,8 @@ class ProductItem extends StatelessWidget {
                     area: (product.area ?? 0).toString(),
                     type: product.isRent ?? false,
                     rooms: (product.numberOfRooms ?? 0).toString(),
-                    price: (Get.find<HomeController>()
-                        .moneyFormat(product.price ?? 0)
-                        .toString()),
+                    price:
+                        AppConstants.moneyFormat(product.price ?? 0).toString(),
                     address: product.address ?? '',
                     isLand: product.isLand ?? false,
                   ),

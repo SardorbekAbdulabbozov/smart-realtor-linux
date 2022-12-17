@@ -37,6 +37,8 @@ class Results {
     this.description,
     this.address,
     this.title,
+    this.isBooked,
+    this.isLand,
   });
 
   Results.fromJson(dynamic json) {
@@ -55,6 +57,39 @@ class Results {
     address = json['address'];
     title = json['title'];
   }
+
+  Results copyWith({
+    String? objectId,
+    List<String>? images,
+    bool? isRent,
+    dynamic price,
+    dynamic area,
+    dynamic numberOfRooms,
+    bool? isRecommended,
+    bool? isBooked,
+    bool? isLand,
+    String? createdAt,
+    String? updatedAt,
+    String? description,
+    String? address,
+    String? title,
+  }) =>
+      Results(
+        objectId: objectId ?? this.objectId,
+        images: images ?? this.images,
+        isRent: isRent ?? this.isRent,
+        price: price ?? this.price,
+        area: area ?? this.area,
+        numberOfRooms: numberOfRooms ?? this.numberOfRooms,
+        isRecommended: isRecommended ?? this.isRecommended,
+        isBooked: isBooked ?? this.isBooked,
+        isLand: isLand ?? this.isLand,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        description: description ?? this.description,
+        address: address ?? this.address,
+        title: title ?? this.title,
+      );
 
   String? objectId;
   List<String>? images;
@@ -90,7 +125,6 @@ class Results {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['objectId'] = objectId;
     map['images'] = images;
     map['isRent'] = isRent;
     map['price'] = price;
@@ -99,8 +133,6 @@ class Results {
     map['isRecommended'] = isRecommended;
     map['isBooked'] = isBooked;
     map['isLand'] = isLand;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
     map['description'] = description;
     map['address'] = address;
     map['title'] = title;
