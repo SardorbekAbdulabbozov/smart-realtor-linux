@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:my_home/data/provider/response_handler.dart';
 import 'package:my_home/data/provider/server_error.dart';
 import 'package:my_home/data/repository/base/base_repository.dart';
-import 'package:my_home/models/product/Update_product_response.dart';
+import 'package:my_home/models/product/create_product_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
 
 class AdminRepository extends BaseRepository {
@@ -26,24 +26,22 @@ class AdminRepository extends BaseRepository {
     }
   }
 
-  Future<ResponseHandler<UpdateProductResponse>> _fetchUpdateProduct(
+  Future<int> _fetchUpdateProduct(
       Results product) async {
-    UpdateProductResponse response;
     try {
-      response = await apiClient.updateProduct(product.objectId ?? '', product);
+      await apiClient.updateProduct(product.objectId ?? '', product);
+      return 0;
     } catch (error, _) {
-      return ResponseHandler()
-        ..setException(ServerError.withError(error: error as DioError));
+      return 1;
     }
-    return ResponseHandler()..data = response;
   }
 
-  Future<dynamic> updateProduct(Results product) async {
+  Future<int> updateProduct(Results product) async {
     final response = await _fetchUpdateProduct(product);
-    if (response.data != null) {
-      return response.data;
-    } else if (checkIsCancelled(response.getException())) {
-      return getErrorMessage(response.getException()!.getErrorMessage());
+    if (response == 0) {
+      return 0;
+    } else {
+      return 1;
     }
   }
 
@@ -61,6 +59,27 @@ class AdminRepository extends BaseRepository {
       return 'Success';
     } catch (error, _) {
       return getErrorMessage('Something went wrong! :(');
+    }
+  }
+
+  Future<ResponseHandler<CreateProductResponse>> _fetchCreateProduct(
+      Results product) async {
+    CreateProductResponse response;
+    try {
+      response = await apiClient.createProduct(product);
+    } catch (error, _) {
+      return ResponseHandler()
+        ..setException(ServerError.withError(error: error as DioError));
+    }
+    return ResponseHandler()..data = response;
+  }
+
+  Future<dynamic> createProduct(Results product) async {
+    final response = await _fetchCreateProduct(product);
+    if (response.data != null) {
+      return response.data;
+    } else if (checkIsCancelled(response.getException())) {
+      return getErrorMessage(response.getException()!.getErrorMessage());
     }
   }
 }

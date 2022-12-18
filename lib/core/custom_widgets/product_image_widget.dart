@@ -22,7 +22,6 @@ class ProductImageWidget extends StatelessWidget {
         alignment: Alignment.bottomRight,
         children: [
           Container(
-            height: 200,
             clipBehavior: Clip.antiAlias,
             decoration: const BoxDecoration(
               borderRadius: AppConstants.borderRadius12,
@@ -33,7 +32,7 @@ class ProductImageWidget extends StatelessWidget {
               errorWidget: (_, __, ___) =>
                   Image.asset('assets/logo/ic_logo.jpg'),
               placeholder: (_, __) => Image.asset('assets/logo/ic_logo.jpg'),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
           Visibility(
@@ -64,7 +63,7 @@ class ProductImageWidget extends StatelessWidget {
           Visibility(
             visible: isLand,
             child: Positioned(
-              top: 60,
+              top: !isRecommended?30:60,
               left: 0,
               child: Container(
                 decoration: const BoxDecoration(

@@ -1,6 +1,6 @@
 import 'package:my_home/controllers/base/base_controller.dart';
 import 'package:my_home/data/repository/admin_repository.dart';
-import 'package:my_home/models/product/Update_product_response.dart';
+import 'package:my_home/models/product/create_product_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
 
 class AdminController extends BaseController {
@@ -25,10 +25,9 @@ class AdminController extends BaseController {
     }
   }
 
-  Future<void> updateProduct({
+  Future<int> updateProduct({
     required int index,
     String? objectId,
-    List<String>? images,
     bool? isRent,
     dynamic price,
     dynamic area,
@@ -36,8 +35,6 @@ class AdminController extends BaseController {
     bool? isRecommended,
     bool? isBooked,
     bool? isLand,
-    String? createdAt,
-    String? updatedAt,
     String? description,
     String? address,
     String? title,
@@ -46,7 +43,6 @@ class AdminController extends BaseController {
     var result = await _repository.updateProduct(
       products[index].copyWith(
         objectId: objectId,
-        images: images,
         isRent: isRent,
         price: price,
         area: area,
@@ -54,18 +50,52 @@ class AdminController extends BaseController {
         isRecommended: isRecommended,
         isBooked: isBooked,
         isLand: isLand,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
         description: description,
         address: address,
         title: title,
       ),
     );
-    if (result is UpdateProductResponse) {
+    if (result == 0 ) {
       setLoading(false);
+      return 0;
     } else {
       setLoading(false);
-      showErrorSnackBar('Something went wrong! :(');
+      return 1;
+    }
+  }
+
+  Future<int> createNewProduct({
+    bool? isRent,
+    dynamic price,
+    dynamic area,
+    dynamic numberOfRooms,
+    bool? isRecommended,
+    bool? isLand,
+    String? description,
+    String? address,
+    String? title,
+  }) async {
+    setLoading(true);
+    Results product = Results(
+      images: [""],
+      isRent: isRent,
+      price: price,
+      area: area,
+      numberOfRooms: numberOfRooms,
+      isRecommended: isRecommended,
+      isBooked: false,
+      isLand: isLand,
+      description: description,
+      address: address,
+      title: title,
+    );
+    var result = await _repository.createProduct(product);
+    if (result is CreateProductResponse) {
+      setLoading(false);
+      return 0;
+    } else {
+      setLoading(false);
+      return 1;
     }
   }
 

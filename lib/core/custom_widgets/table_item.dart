@@ -6,7 +6,10 @@ class TableItem extends StatelessWidget {
     this.title,
     this.child,
     required this.width,
+    this.isHeader = false,
   }) : super(key: key);
+  final bool isHeader;
+
   final double width;
   final String? title;
   final Widget? child;
@@ -15,13 +18,17 @@ class TableItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      child: child ?? Center(
-        child: Text(
-          title??'',
-          style: const TextStyle(fontSize: 16),
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
+      child: child ??
+          Center(
+            child: Text(
+              title ?? '',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
     );
   }
 }

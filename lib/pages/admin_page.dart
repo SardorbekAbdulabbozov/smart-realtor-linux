@@ -4,7 +4,7 @@ import 'package:my_home/controllers/admin_controller.dart';
 import 'package:my_home/core/app_routes/app_route_names.dart';
 import 'package:my_home/core/constants/app_constants.dart';
 import 'package:my_home/core/custom_widgets/custom_button.dart';
-import 'package:my_home/core/custom_widgets/custom_text_field.dart';
+import 'package:my_home/core/custom_widgets/product_edit_add_dialog.dart';
 import 'package:my_home/core/custom_widgets/table_item.dart';
 
 class AdminPage extends StatelessWidget {
@@ -28,7 +28,7 @@ class AdminPage extends StatelessWidget {
                     children: [
                       Container(
                         height: 60,
-                        margin: const EdgeInsets.only(bottom: 8),
+                        margin: const EdgeInsets.only(bottom: 0),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
                         ),
@@ -38,58 +38,68 @@ class AdminPage extends StatelessWidget {
                             TableItem(
                               width: width * 0.04,
                               title: 'No.',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.18,
                               title: 'Title',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.07,
                               title: 'Price, \$',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.16,
                               title: 'Address',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.05,
                               title: 'Type',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.07,
                               title: 'Area',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.1,
                               title: 'No. of rooms',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.11,
                               title: 'Recommended',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width * 0.05,
                               title: 'Land',
+                              isHeader: true,
                             ),
                             AppConstants.verticalDividerForHeader,
                             TableItem(
                               width: width - (width * 0.83) - 34,
                               title: 'Actions',
+                              isHeader: true,
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
                         width: width,
-                        height: height - 192,
+                        height: height - 256,
                         child: ListView.builder(
                           physics: const ClampingScrollPhysics(),
                           itemCount: logic.products.length,
@@ -98,7 +108,9 @@ class AdminPage extends StatelessWidget {
                               height: 60,
                               decoration: BoxDecoration(
                                 border: Border(
-                                  top: const BorderSide(color: Colors.grey),
+                                  top: i == 0
+                                      ? BorderSide.none
+                                      : const BorderSide(color: Colors.grey),
                                   right: const BorderSide(color: Colors.grey),
                                   left: const BorderSide(color: Colors.grey),
                                   bottom: (i + 1 == logic.products.length)
@@ -141,7 +153,8 @@ class AdminPage extends StatelessWidget {
                                                         .length ==
                                                     1
                                                 ? (logic.products[i].address ??
-                                                    '')[0]
+                                                        '')
+                                                    .split(', ')[0]
                                                 : 'Undefined'
                                         : 'Undefined',
                                   ),
@@ -150,7 +163,7 @@ class AdminPage extends StatelessWidget {
                                     width: width * 0.05,
                                     title: (logic.products[i].isRent ?? false)
                                         ? 'Rent'
-                                        : 'Sale',
+                                        : 'Sell',
                                   ),
                                   AppConstants.verticalDividerForHeader,
                                   TableItem(
@@ -203,147 +216,80 @@ class AdminPage extends StatelessWidget {
                                               context: context,
                                               barrierColor: Colors.transparent,
                                               builder: (BuildContext context) {
-                                                return Dialog(
-                                                  insetPadding:
-                                                      EdgeInsets.symmetric(
-                                                    horizontal: width / 4,
-                                                  ),
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  child: Container(
-                                                    padding: AppConstants
-                                                        .marginAll16,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius: AppConstants
-                                                          .borderRadius12,
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
+                                                return ProductEditAddDialog(
+                                                  title:
+                                                      logic.products[i].title ??
+                                                          '',
+                                                  description: logic.products[i]
+                                                          .description ??
+                                                      '',
+                                                  address: logic.products[i]
+                                                          .address ??
+                                                      '',
+                                                  price:
+                                                      AppConstants.moneyFormat(
                                                               logic.products[i]
-                                                                      .title ??
-                                                                  '',
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                            AppConstants.spacer,
-                                                            IconButton(
-                                                              icon: const Icon(
-                                                                Icons.close,
-                                                              ),
-                                                              onPressed:
-                                                                  Get.back,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        CustomTextField(
-                                                          labelText: 'Title',
-                                                          controller:
-                                                              TextEditingController(),
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        CustomTextField(
-                                                          labelText:
-                                                              "Description",
-                                                          controller:
-                                                              TextEditingController(),
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        CustomTextField(
-                                                          labelText: "Address",
-                                                          controller:
-                                                              TextEditingController(),
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        CustomTextField(
-                                                          labelText: "Price",
-                                                          controller:
-                                                              TextEditingController(),
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        CustomTextField(
-                                                          labelText: "Area",
-                                                          controller:
-                                                              TextEditingController(),
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        CustomTextField(
-                                                          labelText:
-                                                              "No. of Rooms",
-                                                          controller:
-                                                              TextEditingController(),
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        Row(
-                                                          children: [
-                                                            const Text(
-                                                                'Is Land?'),
-                                                            Switch(
-                                                              value: logic
-                                                                      .products[
-                                                                          i]
-                                                                      .isLand ??
-                                                                  false,
-                                                              onChanged:
-                                                                  (value) {},
-                                                            ),
-                                                            AppConstants.spacer,
-                                                            const Text(
-                                                                'Is Rent?'),
-                                                            Switch(
-                                                              value: logic
-                                                                      .products[
-                                                                          i]
-                                                                      .isRent ??
-                                                                  false,
-                                                              onChanged:
-                                                                  (value) {},
-                                                            ),
-                                                            AppConstants.spacer,
-                                                            const Text(
-                                                                'Is Recommended?'),
-                                                            Switch(
-                                                              value: logic
-                                                                      .products[
-                                                                          i]
-                                                                      .isRecommended ??
-                                                                  false,
-                                                              onChanged:
-                                                                  (value) {},
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        AppConstants
-                                                            .boxHeight12,
-                                                        CustomButton(
-                                                          title: 'SAVE',
-                                                          onPressed: () {},
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                                      .price ??
+                                                                  0)
+                                                          .toString(),
+                                                  area:
+                                                      (logic.products[i].area ??
+                                                              0)
+                                                          .toString(),
+                                                  rooms: (logic.products[i]
+                                                              .numberOfRooms ??
+                                                          0)
+                                                      .toString(),
+                                                  isLand: logic
+                                                          .products[i].isLand ??
+                                                      false,
+                                                  isRent: logic
+                                                          .products[i].isRent ??
+                                                      false,
+                                                  isRecommended: logic
+                                                          .products[i]
+                                                          .isRecommended ??
+                                                      false,
+                                                  onSave: (
+                                                    title,
+                                                    description,
+                                                    address,
+                                                    price,
+                                                    area,
+                                                    rooms,
+                                                    isLand,
+                                                    isRent,
+                                                    isRecommended,
+                                                  ) async {
+                                                    Get.back();
+                                                    int result = await logic
+                                                        .updateProduct(
+                                                      index: i,
+                                                      objectId: logic
+                                                          .products[i].objectId,
+                                                      title: title,
+                                                      description: description,
+                                                      address: address,
+                                                      price: num.tryParse(
+                                                          price ?? ''),
+                                                      area: num.tryParse(
+                                                          area ?? ''),
+                                                      numberOfRooms:
+                                                          num.tryParse(
+                                                              rooms ?? ''),
+                                                      isLand: isLand,
+                                                      isRent: isRent,
+                                                      isRecommended:
+                                                          isRecommended,
+                                                    );
+                                                    if (result == 0) {
+                                                      await logic
+                                                          .getProductList();
+                                                    } else {
+                                                      logic.showErrorSnackBar(
+                                                          'Something went wrong! :(');
+                                                    }
+                                                  },
                                                 );
                                               },
                                             );
@@ -367,6 +313,56 @@ class AdminPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                            );
+                          },
+                        ),
+                      ),
+                      AppConstants.boxHeight12,
+                      SizedBox(
+                        width: 250,
+                        child: CustomButton(
+                          title: 'Add New Item',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              barrierColor: Colors.transparent,
+                              builder: (BuildContext context) {
+                                return ProductEditAddDialog(
+                                  isLand: false,
+                                  isRent: false,
+                                  isRecommended: false,
+                                  onSave: (
+                                    title,
+                                    description,
+                                    address,
+                                    price,
+                                    area,
+                                    rooms,
+                                    isLand,
+                                    isRent,
+                                    isRecommended,
+                                  ) async {
+                                    Get.back();
+                                    int result = await logic.createNewProduct(
+                                      title: title,
+                                      description: description,
+                                      address: address,
+                                      price: num.tryParse(price ?? ''),
+                                      area: num.tryParse(area ?? ''),
+                                      numberOfRooms: num.tryParse(rooms ?? ''),
+                                      isLand: isLand,
+                                      isRent: isRent,
+                                      isRecommended: isRecommended,
+                                    );
+                                    if (result == 0) {
+                                      await logic.getProductList();
+                                    } else {
+                                      logic.showErrorSnackBar(
+                                          'Something went wrong! :(');
+                                    }
+                                  },
+                                );
+                              },
                             );
                           },
                         ),

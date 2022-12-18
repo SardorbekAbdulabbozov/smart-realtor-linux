@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_home/core/constants/app_constants.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -9,6 +10,8 @@ class CustomTextField extends StatelessWidget {
     this.textObscureCallback,
     required this.labelText,
     required this.controller,
+    this.inputType,
+    this.inputFormatters,
   }) : super(key: key);
 
   final bool obscure;
@@ -16,12 +19,16 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextEditingController controller;
   final void Function()? textObscureCallback;
+  final TextInputType? inputType;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      keyboardType: inputType ?? TextInputType.text,
       obscureText: obscure && (labelText == 'Password'),
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         filled: true,
         suffixIcon: labelText == 'Password'

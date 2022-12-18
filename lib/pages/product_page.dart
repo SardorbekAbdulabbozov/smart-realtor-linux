@@ -48,26 +48,35 @@ class ProductPage extends StatelessWidget {
                               logic.changeImageIndex(i);
                             },
                             scrollPhysics: const ClampingScrollPhysics()),
-                        items: logic.product?.images
-                                ?.map(
-                                  (url) => Container(
-                                    decoration: const BoxDecoration(
-                                      borderRadius: AppConstants.borderRadius12,
-                                      color: Colors.white,
-                                    ),
-                                    clipBehavior: Clip.antiAlias,
-                                    child: CachedNetworkImage(
-                                      imageUrl: url,
-                                      fit: BoxFit.cover,
-                                      errorWidget: (_, __, ___) => Image.asset(
-                                          'assets/logo/ic_logo.jpg'),
-                                      placeholder: (_, __) => Image.asset(
-                                          'assets/logo/ic_logo.jpg'),
-                                    ),
-                                  ),
-                                )
-                                .toList() ??
-                            [],
+                        items: (logic.product?.images ?? []).isNotEmpty
+                            ? logic.product?.images
+                                    ?.map(
+                                      (url) => Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius:
+                                              AppConstants.borderRadius12,
+                                          color: Colors.white,
+                                        ),
+                                        clipBehavior: Clip.antiAlias,
+                                        child: CachedNetworkImage(
+                                          imageUrl: url,
+                                          fit: BoxFit.cover,
+                                          errorWidget: (_, __, ___) =>
+                                              Image.asset(
+                                                  'assets/logo/ic_logo.jpg'),
+                                          placeholder: (_, __) => Image.asset(
+                                              'assets/logo/ic_logo.jpg'),
+                                        ),
+                                      ),
+                                    )
+                                    .toList() ??
+                                []
+                            : [
+                                Container(
+                                  color: Colors.white,
+                                  child: Image.asset('assets/logo/ic_logo.jpg'),
+                                ),
+                              ],
                       ),
                     ),
                     Container(
@@ -80,7 +89,7 @@ class ProductPage extends StatelessWidget {
                         color: Colors.black54,
                       ),
                       child: Center(
-                        child: ListView.builder(
+                        child:(logic.product?.images?.length ?? 0)!=0? ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: logic.product?.images?.length ?? 0,
@@ -96,6 +105,12 @@ class ProductPage extends StatelessWidget {
                               ),
                             );
                           },
+                        ):const Padding(
+                          padding: AppConstants.marginAll4,
+                          child: CircleAvatar(
+                            radius: 5,
+                            backgroundColor: Colors.white,
+                          ),
                         ),
                       ),
                     ),
