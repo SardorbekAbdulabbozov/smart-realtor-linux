@@ -67,7 +67,6 @@ class ProductController extends BaseController {
         if (appointedTime != null) {
           isVisitAppointed = true;
         }
-        debugPrint('appointedTime: $appointedTime :: $isVisitAppointed');
       }
       setLoading(false);
     } else {
