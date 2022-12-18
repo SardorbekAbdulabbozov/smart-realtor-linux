@@ -1,0 +1,28 @@
+name: smart-realtor-v1
+version: 0.1.0
+summary: App for Operating System course assignment. INHA University in Tashkent
+description: University Project
+
+confinement: strict
+base: core18
+grade: stable
+
+slots:
+  dbus-smart-realtor-v1: # adjust accordingly to your app name
+    interface: dbus
+    bus: session
+    name: org.bar.smart_realtor_v1 # adjust accordingly to your app name and
+
+apps:
+  smart-realtor:
+    command: smart_realtor_v1
+    extensions: [flutter-master] # Where "master" defines which Flutter channel to use for the build
+    plugs:
+      - network
+    slots:
+      - dbus-smart-realtor-v1
+parts:
+  smart-realtor-v1:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart # The main entry-point file of the application
