@@ -47,6 +47,9 @@ class Product {
   @HiveField(13)
   bool? isBooked;
 
+  @HiveField(14)
+  String? whoBooked;
+
   Product({
     this.objectId,
     this.images,
@@ -62,6 +65,7 @@ class Product {
     this.description,
     this.address,
     this.title,
+    this.whoBooked,
   });
 
   Product.fromResults(Results results) {
@@ -79,5 +83,6 @@ class Product {
     title = results.title;
     isLand = results.isLand;
     isBooked = results.isBooked;
+    whoBooked = results.whoBooked;
   }
 }

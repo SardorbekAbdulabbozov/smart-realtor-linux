@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:my_home/data/provider/response_handler.dart';
 import 'package:my_home/data/provider/server_error.dart';
 import 'package:my_home/data/repository/base/base_repository.dart';
-import 'package:my_home/models/product/create_product_response.dart';
+import 'package:my_home/models/success/create_success_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
 
 class AdminRepository extends BaseRepository {
@@ -62,9 +62,9 @@ class AdminRepository extends BaseRepository {
     }
   }
 
-  Future<ResponseHandler<CreateProductResponse>> _fetchCreateProduct(
+  Future<ResponseHandler<CreateSuccessResponse>> _fetchCreateProduct(
       Results product) async {
-    CreateProductResponse response;
+    CreateSuccessResponse response;
     try {
       response = await apiClient.createProduct(product);
     } catch (error, _) {

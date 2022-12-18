@@ -1,10 +1,10 @@
-class CreateProductResponse {
+class CreateSuccessResponse {
   String? objectId;
   String? createdAt;
 
-  CreateProductResponse({this.objectId, this.createdAt});
+  CreateSuccessResponse({this.objectId, this.createdAt});
 
-  CreateProductResponse.fromJson(Map<String, dynamic> json) {
+  CreateSuccessResponse.fromJson(Map<String, dynamic> json) {
     objectId = json['objectId'];
     createdAt = json['createdAt'];
   }

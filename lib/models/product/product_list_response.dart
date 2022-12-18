@@ -39,6 +39,7 @@ class Results {
     this.title,
     this.isBooked,
     this.isLand,
+    this.whoBooked,
   });
 
   Results.fromJson(dynamic json) {
@@ -56,6 +57,7 @@ class Results {
     description = json['description'];
     address = json['address'];
     title = json['title'];
+    whoBooked = json['whoBooked'];
   }
 
   Results copyWith({
@@ -73,6 +75,7 @@ class Results {
     String? description,
     String? address,
     String? title,
+    String? whoBooked,
   }) =>
       Results(
         objectId: objectId ?? this.objectId,
@@ -89,6 +92,7 @@ class Results {
         description: description ?? this.description,
         address: address ?? this.address,
         title: title ?? this.title,
+        whoBooked: whoBooked ?? this.whoBooked,
       );
 
   String? objectId;
@@ -105,6 +109,7 @@ class Results {
   String? description;
   String? address;
   String? title;
+  String? whoBooked;
 
   Results.fromProduct(Product product) {
     objectId = product.objectId;
@@ -120,6 +125,7 @@ class Results {
     address = product.address;
     title = product.title;
     isBooked = product.isBooked;
+    whoBooked = product.whoBooked;
     isLand = product.isLand;
   }
 
@@ -136,6 +142,7 @@ class Results {
     map['description'] = description;
     map['address'] = address;
     map['title'] = title;
+    map['whoBooked'] = whoBooked;
     return map;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:my_home/controllers/base/base_controller.dart';
 import 'package:my_home/data/repository/admin_repository.dart';
-import 'package:my_home/models/product/create_product_response.dart';
+import 'package:my_home/models/success/create_success_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
 
 class AdminController extends BaseController {
@@ -90,7 +90,7 @@ class AdminController extends BaseController {
       title: title,
     );
     var result = await _repository.createProduct(product);
-    if (result is CreateProductResponse) {
+    if (result is CreateSuccessResponse) {
       setLoading(false);
       return 0;
     } else {

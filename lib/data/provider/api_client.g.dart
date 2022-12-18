@@ -171,6 +171,54 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<ProductListResponse> getSingleProduct(where) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'where': where};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductListResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'classes/Product',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductListResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<RequestVisitResponse> getVisitors(where) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'where': where};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RequestVisitResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'classes/Visitors',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = RequestVisitResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<void> updateProduct(
     objectId,
     body,
@@ -217,14 +265,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<CreateProductResponse> createProduct(body) async {
+  Future<CreateSuccessResponse> createProduct(body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CreateProductResponse>(Options(
+        _setStreamType<CreateSuccessResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -236,7 +284,31 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CreateProductResponse.fromJson(_result.data!);
+    final value = CreateSuccessResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CreateSuccessResponse> requestVisit(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CreateSuccessResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'classes/Visitors',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CreateSuccessResponse.fromJson(_result.data!);
     return value;
   }
 

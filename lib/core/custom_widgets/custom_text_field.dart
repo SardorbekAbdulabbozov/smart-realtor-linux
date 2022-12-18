@@ -12,11 +12,14 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     this.inputType,
     this.inputFormatters,
+    this.hintText, this.enabled,
   }) : super(key: key);
 
+  final bool? enabled;
   final bool obscure;
   final IconData? sufficIconData;
   final String labelText;
+  final String? hintText;
   final TextEditingController controller;
   final void Function()? textObscureCallback;
   final TextInputType? inputType;
@@ -26,6 +29,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      enabled: enabled,
       keyboardType: inputType ?? TextInputType.text,
       obscureText: obscure && (labelText == 'Password'),
       inputFormatters: inputFormatters,
@@ -44,7 +48,14 @@ class CustomTextField extends StatelessWidget {
           borderRadius: AppConstants.borderRadius12,
         ),
         labelText: labelText,
+        hintText: hintText,
         enabledBorder: const OutlineInputBorder(
+          borderRadius: AppConstants.borderRadius12,
+          borderSide: BorderSide(
+            color: Colors.black,
+          ),
+        ),
+        disabledBorder: const OutlineInputBorder(
           borderRadius: AppConstants.borderRadius12,
           borderSide: BorderSide(
             color: Colors.black,

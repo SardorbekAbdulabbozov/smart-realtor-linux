@@ -5,10 +5,12 @@ import 'package:dio_retry_plus/dio_retry_plus.dart';
 import 'package:my_home/core/constants/app_constants.dart';
 import 'package:my_home/models/auth/sign_up_request.dart';
 import 'package:my_home/models/auth/sign_up_response.dart';
-import 'package:my_home/models/product/create_product_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
+import 'package:my_home/models/success/create_success_response.dart';
 import 'package:my_home/models/user/user_details_response.dart';
 import 'package:my_home/models/verification/verify_email_request.dart';
+import 'package:my_home/models/visitor/request_visit_request.dart';
+import 'package:my_home/models/visitor/request_visit_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
@@ -90,6 +92,12 @@ abstract class ApiClient {
   @GET("classes/Product")
   Future<ProductListResponse> getProductList();
 
+  @GET("classes/Product")
+  Future<ProductListResponse> getSingleProduct(@Query('where') String? where);
+
+  @GET("classes/Visitors")
+  Future<RequestVisitResponse> getVisitors(@Query('where') String? where);
+
   @PUT('classes/Product/{objectId}')
   Future<void> updateProduct(
     @Path('objectId') String objectId,
@@ -100,7 +108,10 @@ abstract class ApiClient {
   Future<void> deleteProduct(@Path('objectId') String objectId);
 
   @POST('classes/Product')
-  Future<CreateProductResponse> createProduct(@Body() Results body);
+  Future<CreateSuccessResponse> createProduct(@Body() Results body);
+
+  @POST('classes/Visitors')
+  Future<CreateSuccessResponse> requestVisit(@Body() RequestVisitRequest body);
 }
 /*flutter pub run build_runner build --delete-conflicting-outputs*/
 /*flutter pub run build_runner watch --delete-conflicting-outputs*/
