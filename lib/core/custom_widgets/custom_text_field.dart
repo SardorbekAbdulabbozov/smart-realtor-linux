@@ -5,23 +5,26 @@ import 'package:my_home/core/constants/app_constants.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
-    this.sufficIconData,
+    this.suffixIconData,
     this.obscure = false,
     this.textObscureCallback,
-    required this.labelText,
+    this.labelText,
     required this.controller,
     this.inputType,
     this.inputFormatters,
-    this.hintText, this.enabled,
+    this.hintText,
+    this.enabled,
+    this.onChanged,
   }) : super(key: key);
 
   final bool? enabled;
   final bool obscure;
-  final IconData? sufficIconData;
-  final String labelText;
+  final IconData? suffixIconData;
+  final String? labelText;
   final String? hintText;
   final TextEditingController controller;
   final void Function()? textObscureCallback;
+  final void Function(String)? onChanged;
   final TextInputType? inputType;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -32,6 +35,11 @@ class CustomTextField extends StatelessWidget {
       enabled: enabled,
       keyboardType: inputType ?? TextInputType.text,
       obscureText: obscure && (labelText == 'Password'),
+      onChanged: onChanged != null
+          ? (value) {
+              onChanged?.call(value);
+            }
+          : null,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
         filled: true,
@@ -40,8 +48,8 @@ class CustomTextField extends StatelessWidget {
                 onTap: textObscureCallback,
                 child: Icon(obscure ? Icons.visibility : Icons.visibility_off),
               )
-            : sufficIconData != null
-                ? Icon(sufficIconData)
+            : suffixIconData != null
+                ? Icon(suffixIconData)
                 : null,
         fillColor: Colors.transparent,
         border: const OutlineInputBorder(

@@ -4,11 +4,11 @@ import 'package:my_home/core/theme/app_colors.dart';
 
 class AppConstants {
   static const baseUrl = 'https://parseapi.back4app.com/';
-  static const defaultImageUrl = 'https://cuttingedgeds.com/wp-content/uploads/2019/12/Luxury-Homes-Interior-Design-1-1.jpg';
+  static const defaultImageUrl =
+      'https://cuttingedgeds.com/wp-content/uploads/2019/12/Luxury-Homes-Interior-Design-1-1.jpg';
 
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(
-    debugLabel: "SmartRealtor",
-  );
+  static GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: "SmartRealtor");
 
   static LinearGradient gradient = LinearGradient(
     begin: Alignment.topCenter,
@@ -27,11 +27,12 @@ class AppConstants {
   static const borderRadius12 = BorderRadius.all(Radius.circular(12));
 
   static const spacer = Spacer();
-  static const boxWidth4= SizedBox(width: 4);
-  static const boxWidth16= SizedBox(width: 16);
-  static const boxHeight4= SizedBox(height: 4);
-  static const boxHeight8= SizedBox(height: 8);
-  static const boxHeight12= SizedBox(height: 12);
+  static const boxWidth4 = SizedBox(width: 4);
+  static const boxWidth8 = SizedBox(width: 8);
+  static const boxWidth16 = SizedBox(width: 16);
+  static const boxHeight4 = SizedBox(height: 4);
+  static const boxHeight8 = SizedBox(height: 8);
+  static const boxHeight12 = SizedBox(height: 12);
   static const boxHeight16 = SizedBox(height: 16);
   static const boxHeight24 = SizedBox(height: 24);
 
@@ -57,5 +58,4 @@ class AppConstants {
     result = NumberFormat().format(number).split(",").join(" ");
     return isNegative ? "-$result" : result;
   }
-
 }

@@ -58,7 +58,7 @@ class LoginRepository extends BaseRepository {
       email: email,
       gender: gender,
       password: password,
-      isAdmin: false,
+      isAdmin: email.contains("@smart.realtor.com"),
     );
     final response = await _fetchSignUp(request);
     if (response.data != null) {

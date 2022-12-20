@@ -88,6 +88,7 @@ class AdminController extends BaseController {
       description: description,
       address: address,
       title: title,
+      whoBooked: '',
     );
     var result = await _repository.createProduct(product);
     if (result is CreateSuccessResponse) {

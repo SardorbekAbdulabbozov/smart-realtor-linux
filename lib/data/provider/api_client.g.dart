@@ -171,7 +171,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<ProductListResponse> getSingleProduct(where) async {
+  Future<ProductListResponse> getSpecificProducts(where) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'where': where};
     queryParameters.removeWhere((k, v) => v == null);

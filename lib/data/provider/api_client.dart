@@ -93,7 +93,7 @@ abstract class ApiClient {
   Future<ProductListResponse> getProductList();
 
   @GET("classes/Product")
-  Future<ProductListResponse> getSingleProduct(@Query('where') String? where);
+  Future<ProductListResponse> getSpecificProducts(@Query('where') String? where);
 
   @GET("classes/Visitors")
   Future<RequestVisitResponse> getVisitors(@Query('where') String? where);

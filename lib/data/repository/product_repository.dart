@@ -72,7 +72,7 @@ class ProductRepository extends BaseRepository {
       String? where) async {
     ProductListResponse response;
     try {
-      response = await apiClient.getSingleProduct(where);
+      response = await apiClient.getSpecificProducts(where);
     } catch (error, _) {
       return ResponseHandler()
         ..setException(ServerError.withError(error: error as DioError));

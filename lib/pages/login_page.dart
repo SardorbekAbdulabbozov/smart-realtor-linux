@@ -40,14 +40,14 @@ class LoginPage extends StatelessWidget {
                   CustomTextField(
                     labelText: 'Username',
                     controller: logic.usernameController,
-                    sufficIconData: Icons.person,
+                    suffixIconData: Icons.person,
                   ),
                   AppConstants.boxHeight16,
                   if (!logic.isLogin)
                     CustomTextField(
                       labelText: 'Email',
                       controller: logic.emailController,
-                      sufficIconData: Icons.email,
+                      suffixIconData: Icons.email,
                     ),
                   if (!logic.isLogin) AppConstants.boxHeight16,
                   if (!logic.isLogin)
