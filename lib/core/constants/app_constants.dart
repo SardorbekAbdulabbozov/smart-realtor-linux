@@ -58,4 +58,46 @@ class AppConstants {
     result = NumberFormat().format(number).split(",").join(" ");
     return isNegative ? "-$result" : result;
   }
+
+  static const Map<String, List<String>> districts = {
+    'Tashkent city': [
+      'Yashnobod',
+      'Mirzo Ulugbek',
+      'Sergeli',
+      'Yunusobod',
+      'Chilonzor',
+      'Mirobod',
+      'Shaykhontohur',
+      'Uchtepa',
+      'Yakkasaroy',
+      'Olmazor',
+      'Yangi hayot',
+      'Bektemir',
+    ],
+    'Namangan':[
+      'Uychi',
+      'Chust',
+      'Pop',
+      'Kosonsoy',
+      'Yangikurgan',
+    ],
+    "Samarkand":[
+      'Urgut',
+      'Kattakurgan',
+      'Ishtixon',
+    ],
+    'Bukhara':[
+      'Kogon',
+      'Shafirkan',
+      'Qorakul',
+    ],
+  };
+
+  static const List<String> regions = [
+    'Choose region',
+    'Tashkent city',
+    'Namangan',
+    'Samarkand',
+    'Bukhara',
+  ];
 }

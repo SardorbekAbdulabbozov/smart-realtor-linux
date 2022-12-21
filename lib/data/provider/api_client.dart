@@ -7,6 +7,7 @@ import 'package:my_home/models/auth/sign_up_request.dart';
 import 'package:my_home/models/auth/sign_up_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
 import 'package:my_home/models/success/create_success_response.dart';
+import 'package:my_home/models/user/owner/owner_details_response.dart';
 import 'package:my_home/models/user/user_details_response.dart';
 import 'package:my_home/models/verification/verify_email_request.dart';
 import 'package:my_home/models/visitor/request_visit_request.dart';
@@ -89,11 +90,16 @@ abstract class ApiClient {
     @Header('X-Parse-Session-Token') String sessionToken,
   );
 
+  @GET("users/{objectId}")
+  Future<OwnerDetailsResponse> getOwnerDetails(
+      @Query('objectId') String objectId);
+
   @GET("classes/Product")
   Future<ProductListResponse> getProductList();
 
   @GET("classes/Product")
-  Future<ProductListResponse> getSpecificProducts(@Query('where') String? where);
+  Future<ProductListResponse> getSpecificProducts(
+      @Query('where') String? where);
 
   @GET("classes/Visitors")
   Future<RequestVisitResponse> getVisitors(@Query('where') String? where);

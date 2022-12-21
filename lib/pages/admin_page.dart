@@ -210,95 +210,113 @@ class AdminPage extends StatelessWidget {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              barrierColor: Colors.transparent,
-                                              builder: (BuildContext context) {
-                                                return ProductEditAddDialog(
-                                                  title:
-                                                      logic.products[i].title ??
-                                                          '',
-                                                  description: logic.products[i]
-                                                          .description ??
-                                                      '',
-                                                  address: logic.products[i]
-                                                          .address ??
-                                                      '',
-                                                  price:
-                                                      AppConstants.moneyFormat(
-                                                              logic.products[i]
-                                                                      .price ??
-                                                                  0)
-                                                          .toString(),
-                                                  area:
-                                                      (logic.products[i].area ??
-                                                              0)
-                                                          .toString(),
-                                                  rooms: (logic.products[i]
-                                                              .numberOfRooms ??
-                                                          0)
-                                                      .toString(),
-                                                  isLand: logic
-                                                          .products[i].isLand ??
-                                                      false,
-                                                  isRent: logic
-                                                          .products[i].isRent ??
-                                                      false,
-                                                  isRecommended: logic
-                                                          .products[i]
-                                                          .isRecommended ??
-                                                      false,
-                                                  onSave: (
-                                                    title,
-                                                    description,
-                                                    address,
-                                                    price,
-                                                    area,
-                                                    rooms,
-                                                    isLand,
-                                                    isRent,
-                                                    isRecommended,
-                                                  ) async {
-                                                    Get.back();
-                                                    int result = await logic
-                                                        .updateProduct(
-                                                      index: i,
-                                                      objectId: logic
-                                                          .products[i].objectId,
-                                                      title: title,
-                                                      description: description,
-                                                      address: address,
-                                                      price: num.tryParse(
-                                                          price ?? ''),
-                                                      area: num.tryParse(
-                                                          area ?? ''),
-                                                      numberOfRooms:
-                                                          num.tryParse(
-                                                              rooms ?? ''),
-                                                      isLand: isLand,
-                                                      isRent: isRent,
-                                                      isRecommended:
-                                                          isRecommended,
-                                                    );
-                                                    if (result == 0) {
-                                                      await logic
-                                                          .getProductList();
-                                                    } else {
-                                                      logic.showErrorSnackBar(
-                                                          'Something went wrong! :(');
-                                                    }
-                                                  },
-                                                );
-                                              },
-                                            );
-                                          },
-                                          icon: const Icon(
-                                            Icons.edit,
-                                            color: Colors.green,
+                                        if (logic.localSource
+                                                .getProfile()
+                                                .isOwner ??
+                                            false)
+                                          IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                barrierColor:
+                                                    Colors.transparent,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return ProductEditAddDialog(
+                                                    title: logic.products[i]
+                                                            .title ??
+                                                        '',
+                                                    description: logic
+                                                            .products[i]
+                                                            .description ??
+                                                        '',
+                                                    address: logic.products[i]
+                                                            .address ??
+                                                        '',
+                                                    price: AppConstants
+                                                            .moneyFormat(logic
+                                                                    .products[i]
+                                                                    .price ??
+                                                                0)
+                                                        .toString(),
+                                                    area: (logic.products[i]
+                                                                .area ??
+                                                            0)
+                                                        .toString(),
+                                                    rooms: (logic.products[i]
+                                                                .numberOfRooms ??
+                                                            0)
+                                                        .toString(),
+                                                    isLand: logic.products[i]
+                                                            .isLand ??
+                                                        false,
+                                                    isRent: logic.products[i]
+                                                            .isRent ??
+                                                        false,
+                                                    isRecommended: logic
+                                                            .products[i]
+                                                            .isRecommended ??
+                                                        false,
+                                                    region: logic
+                                                        .products[i].region,
+                                                    district: logic
+                                                        .products[i].district,
+                                                    onSave: (
+                                                      title,
+                                                      description,
+                                                      address,
+                                                      district,
+                                                      region,
+                                                      price,
+                                                      area,
+                                                      rooms,
+                                                      isLand,
+                                                      isRent,
+                                                      isRecommended,
+                                                    ) async {
+                                                      Get.back();
+                                                      int result = await logic
+                                                          .updateProduct(
+                                                        index: i,
+                                                        objectId: logic
+                                                            .products[i]
+                                                            .objectId,
+                                                        title: title,
+                                                        description:
+                                                            description,
+                                                        address: address,
+                                                        price: num.tryParse(
+                                                            price ?? ''),
+                                                        area: num.tryParse(
+                                                            area ?? ''),
+                                                        numberOfRooms:
+                                                            num.tryParse(
+                                                                rooms ?? ''),
+                                                        isLand: isLand,
+                                                        isRent: isRent,
+                                                        isRecommended:
+                                                            isRecommended,
+                                                        district: district,
+                                                        region: region,
+                                                      );
+                                                      if (result == 0) {
+                                                        await logic.getProductList(
+                                                            where:
+                                                                '{"owner":"${logic.localSource.getProfile().username}"}');
+                                                      } else {
+                                                        logic.showErrorSnackBar(
+                                                            'Something went wrong! :(');
+                                                      }
+                                                    },
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.edit,
+                                              color: Colors.green,
+                                            ),
                                           ),
-                                        ),
                                         IconButton(
                                           onPressed: () async {
                                             await logic.deleteProduct(i);
@@ -320,51 +338,61 @@ class AdminPage extends StatelessWidget {
                       AppConstants.boxHeight12,
                       SizedBox(
                         width: 250,
-                        child: CustomButton(
-                          title: 'Add New Item',
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              barrierColor: Colors.transparent,
-                              builder: (BuildContext context) {
-                                return ProductEditAddDialog(
-                                  isLand: false,
-                                  isRent: false,
-                                  isRecommended: false,
-                                  onSave: (
-                                    title,
-                                    description,
-                                    address,
-                                    price,
-                                    area,
-                                    rooms,
-                                    isLand,
-                                    isRent,
-                                    isRecommended,
-                                  ) async {
-                                    Get.back();
-                                    int result = await logic.createNewProduct(
-                                      title: title,
-                                      description: description,
-                                      address: address,
-                                      price: num.tryParse(price ?? ''),
-                                      area: num.tryParse(area ?? ''),
-                                      numberOfRooms: num.tryParse(rooms ?? ''),
-                                      isLand: isLand,
-                                      isRent: isRent,
-                                      isRecommended: isRecommended,
-                                    );
-                                    if (result == 0) {
-                                      await logic.getProductList();
-                                    } else {
-                                      logic.showErrorSnackBar(
-                                          'Something went wrong! :(');
-                                    }
-                                  },
-                                );
-                              },
-                            );
-                          },
+                        child: Visibility(
+                          visible:
+                              logic.localSource.getProfile().isOwner ?? false,
+                          child: CustomButton(
+                            title: 'Add New Item',
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                barrierColor: Colors.transparent,
+                                builder: (BuildContext context) {
+                                  return ProductEditAddDialog(
+                                    isLand: false,
+                                    isRent: false,
+                                    isRecommended: false,
+                                    onSave: (
+                                      title,
+                                      description,
+                                      address,
+                                      district,
+                                      region,
+                                      price,
+                                      area,
+                                      rooms,
+                                      isLand,
+                                      isRent,
+                                      isRecommended,
+                                    ) async {
+                                      Get.back();
+                                      int result = await logic.createNewProduct(
+                                        title: title,
+                                        description: description,
+                                        address: address,
+                                        price: num.tryParse(price ?? ''),
+                                        area: num.tryParse(area ?? ''),
+                                        numberOfRooms:
+                                            num.tryParse(rooms ?? ''),
+                                        isLand: isLand,
+                                        isRent: isRent,
+                                        isRecommended: isRecommended,
+                                        district: district,
+                                        region: region,
+                                      );
+                                      if (result == 0) {
+                                        await logic.getProductList(where:
+                                        '{"owner":"${logic.localSource.getProfile().username}"}');
+                                      } else {
+                                        logic.showErrorSnackBar(
+                                            'Something went wrong! :(');
+                                      }
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],

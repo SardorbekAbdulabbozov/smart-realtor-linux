@@ -26,6 +26,8 @@ class LocalSource {
       sessionToken: _localStorage.read(AppKeys.SESSION_TOKEN),
       gender: _localStorage.read(AppKeys.IS_MALE),
       isAdmin: _localStorage.read(AppKeys.IS_ADMIN),
+      isOwner: _localStorage.read(AppKeys.IS_OWNER),
+      phone: _localStorage.read(AppKeys.PHONE),
       isEmailVerified: _localStorage.read(AppKeys.IS_EMAIL_VERIFIED),
     );
     return user;
@@ -34,8 +36,10 @@ class LocalSource {
   Future<void> setProfile(User user) async {
     await _localStorage.write(AppKeys.HAS_PROFILE, true);
     await _localStorage.write(AppKeys.USERNAME, user.username ?? '');
+    await _localStorage.write(AppKeys.PHONE, user.phone ?? '');
     await _localStorage.write(AppKeys.EMAIL, user.email ?? '');
     await _localStorage.write(AppKeys.IS_ADMIN, user.isAdmin ?? false);
+    await _localStorage.write(AppKeys.IS_OWNER, user.isOwner ?? false);
     await _localStorage.write(
         AppKeys.IS_EMAIL_VERIFIED, user.isEmailVerified ?? false);
     await setGender(user.gender ?? true);
@@ -73,6 +77,10 @@ class LocalSource {
 
   bool isAdmin() {
     return _localStorage.read(AppKeys.IS_ADMIN) ?? false;
+  }
+
+  bool isOwner() {
+    return _localStorage.read(AppKeys.IS_OWNER) ?? false;
   }
 
   Future<void> setGender(bool value) async {

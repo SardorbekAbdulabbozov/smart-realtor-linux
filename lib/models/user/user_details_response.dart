@@ -7,7 +7,9 @@ class UserDetailsResponse {
   bool? gender;
   bool? emailVerified;
   bool? isAdmin;
+  bool? isOwner;
   String? className;
+  String? phone;
   String? sessionToken;
 
   UserDetailsResponse({
@@ -19,7 +21,9 @@ class UserDetailsResponse {
     this.gender,
     this.emailVerified,
     this.isAdmin,
+    this.isOwner,
     this.className,
+    this.phone,
     this.sessionToken,
   });
 
@@ -34,6 +38,8 @@ class UserDetailsResponse {
     isAdmin = json['isAdmin'];
     className = json['className'];
     sessionToken = json['sessionToken'];
+    isOwner = json['isOwner'];
+    phone = json['phone'];
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +54,8 @@ class UserDetailsResponse {
     data['isAdmin'] = isAdmin;
     data['className'] = className;
     data['sessionToken'] = sessionToken;
+    data['isOwner'] = isOwner;
+    data['phone'] = phone;
     return data;
   }
 }

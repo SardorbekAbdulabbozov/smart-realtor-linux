@@ -28,6 +28,8 @@ class ProfileController extends BaseController {
           gender: result.gender,
           isEmailVerified: result.emailVerified,
           isAdmin: result.isAdmin,
+          isOwner: result.isOwner,
+          phone: result.phone,
         ),
       );
       update();

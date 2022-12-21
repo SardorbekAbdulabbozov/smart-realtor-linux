@@ -2,14 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:my_home/data/provider/response_handler.dart';
 import 'package:my_home/data/provider/server_error.dart';
 import 'package:my_home/data/repository/base/base_repository.dart';
-import 'package:my_home/models/success/create_success_response.dart';
 import 'package:my_home/models/product/product_list_response.dart';
+import 'package:my_home/models/success/create_success_response.dart';
 
 class AdminRepository extends BaseRepository {
-  Future<ResponseHandler<ProductListResponse>> _fetchProductList() async {
+  Future<ResponseHandler<ProductListResponse>> _fetchProductList(
+      String where) async {
     ProductListResponse response;
     try {
-      response = await apiClient.getProductList();
+      response = where.isNotEmpty
+          ? await apiClient.getSpecificProducts(where)
+          : await apiClient.getProductList();
     } catch (error, _) {
       return ResponseHandler()
         ..setException(ServerError.withError(error: error as DioError));
@@ -17,8 +20,8 @@ class AdminRepository extends BaseRepository {
     return ResponseHandler()..data = response;
   }
 
-  Future<dynamic> getProductList() async {
-    final response = await _fetchProductList();
+  Future<dynamic> getProductList(String where) async {
+    final response = await _fetchProductList(where);
     if (response.data != null) {
       return response.data;
     } else if (checkIsCancelled(response.getException())) {
@@ -26,8 +29,7 @@ class AdminRepository extends BaseRepository {
     }
   }
 
-  Future<int> _fetchUpdateProduct(
-      Results product) async {
+  Future<int> _fetchUpdateProduct(Results product) async {
     try {
       await apiClient.updateProduct(product.objectId ?? '', product);
       return 0;

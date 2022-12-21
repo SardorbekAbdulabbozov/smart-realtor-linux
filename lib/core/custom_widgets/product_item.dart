@@ -81,8 +81,9 @@ class ProductItem extends StatelessWidget {
                     rooms: (product.numberOfRooms ?? 0).toString(),
                     price:
                         AppConstants.moneyFormat(product.price ?? 0).toString(),
-                    address: product.address ?? '',
+                    region: product.region ?? '',
                     isLand: product.isLand ?? false,
+                    district: product.district ?? '',
                   ),
                 ],
               ),

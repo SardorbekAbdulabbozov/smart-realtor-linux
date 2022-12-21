@@ -44,7 +44,8 @@ class ProductController extends BaseController {
     } else {
       if (product != null) {
         isFavourite = true;
-        debugPrint('product.whoBooked: ${product?.isBooked} :: ${product?.whoBooked}');
+        debugPrint(
+            'product.whoBooked: ${product?.isBooked} :: ${product?.whoBooked}');
         await hive.addToFavourites(product!);
       }
     }
@@ -53,12 +54,13 @@ class ProductController extends BaseController {
 
   Future<void> checkAppointment() async {
     setLoading(true);
-    String condition = (localSource.getProfile().isAdmin ?? false)
+    String condition = (localSource.getProfile().isAdmin ?? false) ||
+            (product?.owner == localSource.getProfile().username)
         ? '{ "productId": "${product?.objectId ?? ''}" }'
         : '{ "visitorsUsername": "${localSource.getProfile().username ?? ""}", "productId": "${product?.objectId ?? ''}" }';
     var result = await _repository.checkAppointment(condition);
     if (result is RequestVisitResponse) {
-      if (localSource.getProfile().isAdmin ?? false) {
+      if ((localSource.getProfile().isAdmin ?? false)||(product?.owner == localSource.getProfile().username)) {
         allVisitors = result.visits ?? [];
       } else {
         appointedTime = result.visits?.isNotEmpty ?? false

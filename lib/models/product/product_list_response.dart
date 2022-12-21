@@ -36,6 +36,10 @@ class Results {
     this.updatedAt,
     this.description,
     this.address,
+    this.district,
+    this.region,
+    this.owner,
+    this.ownersPhone,
     this.title,
     this.isBooked,
     this.isLand,
@@ -52,6 +56,10 @@ class Results {
     isRecommended = json['isRecommended'];
     isLand = json['isLand'];
     isBooked = json['isBooked'];
+    owner = json['owner'];
+    district = json['district'];
+    region = json['region'];
+    ownersPhone = json['ownersPhone'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     description = json['description'];
@@ -72,6 +80,10 @@ class Results {
     bool? isLand,
     String? createdAt,
     String? updatedAt,
+    String? owner,
+    String? region,
+    String? district,
+    String? ownersPhone,
     String? description,
     String? address,
     String? title,
@@ -91,6 +103,10 @@ class Results {
         updatedAt: updatedAt ?? this.updatedAt,
         description: description ?? this.description,
         address: address ?? this.address,
+        district: district ?? this.district,
+        region: region ?? this.region,
+        owner: owner ?? this.owner,
+        ownersPhone: ownersPhone ?? this.ownersPhone,
         title: title ?? this.title,
         whoBooked: whoBooked ?? this.whoBooked,
       );
@@ -106,6 +122,10 @@ class Results {
   bool? isLand;
   String? createdAt;
   String? updatedAt;
+  String? owner;
+  String? district;
+  String? region;
+  String? ownersPhone;
   String? description;
   String? address;
   String? title;
@@ -123,6 +143,10 @@ class Results {
     updatedAt = product.updatedAt;
     description = product.description;
     address = product.address;
+    owner = product.owner;
+    district = product.district;
+    region = product.region;
+    ownersPhone = product.ownersPhone;
     title = product.title;
     isBooked = product.isBooked;
     whoBooked = product.whoBooked;
@@ -143,6 +167,10 @@ class Results {
     map['address'] = address;
     map['title'] = title;
     map['whoBooked'] = whoBooked;
+    map['owner'] = owner;
+    map['ownersPhone'] = ownersPhone;
+    map['district'] = district;
+    map['region'] = region;
     return map;
   }
 }

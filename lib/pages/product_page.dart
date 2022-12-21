@@ -19,6 +19,8 @@ class ProductPage extends StatelessWidget {
 
     return GetBuilder<ProductController>(
       builder: (logic) {
+        debugPrint(
+            '${logic.product?.owner} --- ${logic.localSource.getProfile().username}');
         return Scaffold(
           appBar: AppBar(
             title: Text(logic.product?.title ?? ''),
@@ -164,7 +166,7 @@ class ProductPage extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(top: 4, bottom: 8),
                                 child: Text(
-                                  logic.product?.address ?? '',
+                                  [logic.product?.district ?? '',logic.product?.region ?? ''].join(' district, '),
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
@@ -233,9 +235,43 @@ class ProductPage extends StatelessWidget {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
+                              const Text(
+                                'Owner',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 4, bottom: 8),
+                                child: Text(
+                                  '@${logic.product?.owner}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              const Text(
+                                'Owner`s Phone',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 4, bottom: 8),
+                                child: Text(
+                                  '${logic.product?.ownersPhone}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
                               AppConstants.boxHeight24,
                               Visibility(
-                                visible: !logic.localSource.isAdmin(),
+                                visible: !logic.localSource.isAdmin() &&
+                                    (logic.product?.owner !=
+                                        logic.localSource
+                                            .getProfile()
+                                            .username),
                                 child: Row(
                                   children: [
                                     SizedBox(
@@ -279,7 +315,11 @@ class ProductPage extends StatelessWidget {
                                 ),
                               ),
                               Visibility(
-                                visible: !logic.localSource.isAdmin(),
+                                visible: !logic.localSource.isAdmin() &&
+                                    (logic.product?.owner !=
+                                        logic.localSource
+                                            .getProfile()
+                                            .username),
                                 child: Container(
                                   margin: const EdgeInsets.only(top: 16),
                                   width: (((width - 32) / 2) - 8),
@@ -308,7 +348,11 @@ class ProductPage extends StatelessWidget {
                                 ),
                               ),
                               Visibility(
-                                visible: logic.localSource.isAdmin(),
+                                visible: logic.localSource.isAdmin() ||
+                                    (logic.product?.owner ==
+                                        logic.localSource
+                                            .getProfile()
+                                            .username),
                                 child: Container(
                                   margin: const EdgeInsets.only(top: 16),
                                   width: (((width - 32) / 2) - 8),

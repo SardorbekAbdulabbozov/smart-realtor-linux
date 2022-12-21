@@ -50,6 +50,18 @@ class Product {
   @HiveField(14)
   String? whoBooked;
 
+  @HiveField(15)
+  String? owner;
+
+  @HiveField(16)
+  String? region;
+
+  @HiveField(17)
+  String? district;
+
+  @HiveField(18)
+  String? ownersPhone;
+
   Product({
     this.objectId,
     this.images,
@@ -64,6 +76,10 @@ class Product {
     this.updatedAt,
     this.description,
     this.address,
+    this.owner,
+    this.district,
+    this.region,
+    this.ownersPhone,
     this.title,
     this.whoBooked,
   });
@@ -84,5 +100,9 @@ class Product {
     isLand = results.isLand;
     isBooked = results.isBooked;
     whoBooked = results.whoBooked;
+    owner = results.owner;
+    district = results.district;
+    region = results.region;
+    ownersPhone = results.ownersPhone;
   }
 }

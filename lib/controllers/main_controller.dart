@@ -18,8 +18,8 @@ class MainController extends BaseController with GetTickerProviderStateMixin {
         icon: 'home',
       ),
       TabData(
-        title: localSource.isAdmin() ? 'Admin' : 'Search',
-        icon: localSource.isAdmin() ? 'admin' : 'search',
+        title: localSource.isAdmin() ? 'Admin' : localSource.isOwner() ?'My Products':'Search',
+        icon: localSource.isAdmin() || localSource.isOwner() ? 'admin' : 'search',
       ),
       TabData(
         title: localSource.isAdmin() ? 'Users' : 'Favourites',

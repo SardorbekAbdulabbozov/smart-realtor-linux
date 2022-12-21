@@ -51,13 +51,17 @@ class LoginRepository extends BaseRepository {
     required String username,
     required String password,
     required String email,
+    required String phone,
     required bool gender,
+    required bool isOwner,
   }) async {
     final request = SignUpRequest(
       username: username,
       email: email,
       gender: gender,
       password: password,
+      isOwner: isOwner,
+      phone: phone,
       isAdmin: email.contains("@smart.realtor.com"),
     );
     final response = await _fetchSignUp(request);

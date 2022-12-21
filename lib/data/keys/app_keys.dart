@@ -6,6 +6,8 @@ class AppKeys {
   static const HAS_PROFILE = "has_profile";
   static const IS_INTRO_SHOWED = "is_intro_showed";
   static const IS_ADMIN = "is_admin";
+  static const IS_OWNER = "is_owner";
+  static const PHONE = "phone";
   static const IS_MALE = "is_male";
   static const USERNAME = "username";
   static const EMAIL = "email";

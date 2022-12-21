@@ -50,6 +50,11 @@ class ProfilePage extends StatelessWidget {
                   content: logic.localSource.getProfile().email ?? '-',
                   icon: Icons.email,
                 ),
+                ProfileItem(
+                  title: 'Phone',
+                  content: logic.localSource.getProfile().phone ?? '-',
+                  icon: Icons.phone,
+                ),
                 AppConstants.boxHeight24,
                 Visibility(
                   visible: false,

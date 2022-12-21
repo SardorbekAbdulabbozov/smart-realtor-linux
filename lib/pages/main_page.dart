@@ -40,7 +40,7 @@ class MainPage extends StatelessWidget {
                     controller: logic.tabController,
                     children: [
                       const HomePage(),
-                      logic.localSource.isAdmin()
+                      logic.localSource.isAdmin()|| logic.localSource.isOwner()
                           ? const AdminPage()
                           : const SearchPage(),
                       logic.localSource.isAdmin()

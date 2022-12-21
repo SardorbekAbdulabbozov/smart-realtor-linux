@@ -8,15 +8,17 @@ class ProductDetailWidget extends StatelessWidget {
     required this.type,
     required this.rooms,
     required this.price,
-    required this.address,
+    required this.region,
     required this.isLand,
+    required this.district,
   }) : super(key: key);
   final bool type;
   final bool isLand;
   final String area;
   final String rooms;
   final String price;
-  final String address;
+  final String region;
+  final String district;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +49,7 @@ class ProductDetailWidget extends StatelessWidget {
           SingleInfoItem(
             icon: Icons.location_on,
             title: 'Address',
-            content: address.isNotEmpty
-                ? address.split(', ').length >= 2
-                    ? address.split(', ')[1]
-                    : address.split(', ').length == 1
-                        ? address.split(', ')[0]
-                        : 'Undefined'
-                : 'Undefined',
+            content: [district,region].join(' distict,\n'),
             iconColor: Colors.blue,
           ),
           SingleInfoItem(

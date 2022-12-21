@@ -5,6 +5,8 @@ import 'package:my_home/models/product/product_list_response.dart';
 class HomeController extends BaseController {
   final HomeRepository _repository = HomeRepository();
   List<Results> product = [];
+  String selectedDistrict = 'Choose district';
+  String selectedRegion = 'Choose region';
 
   @override
   void onReady() async {
@@ -12,11 +14,30 @@ class HomeController extends BaseController {
     await getProductList();
   }
 
-  Future<void> getProductList() async {
+  void selectDistrict(String? district) async {
+    if (selectedDistrict == district) return;
+    selectedDistrict = district ?? '';
+    await getProductList(
+        where: selectedDistrict != 'Choose district'
+            ? '{"region":"$selectedRegion","district":"$selectedDistrict"}'
+            : '{"region":"$selectedRegion"}');
+  }
+
+  void selectRegion(String? region) async {
+    if (selectedRegion == region) return;
+    selectedDistrict = 'Choose district';
+    selectedRegion = region ?? '';
+    await getProductList(
+        where: selectedRegion != 'Choose region'
+            ? '{"region":"$selectedRegion"}'
+            : '');
+  }
+
+  Future<void> getProductList({String where = ''}) async {
     setLoading(true);
-    var result = await _repository.getProductList();
+    var result = await _repository.getProductList(where: where);
     if (result is ProductListResponse) {
-      product = result.results??[];
+      product = result.results ?? [];
       setLoading(false);
     } else {
       setLoading(false);

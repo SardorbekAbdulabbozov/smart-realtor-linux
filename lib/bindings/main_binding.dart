@@ -13,8 +13,10 @@ class MainBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => MainController(), fenix: true);
     if (LocalSource.getInstance().isAdmin()) {
-      Get.lazyPut(() => AdminController(), fenix: true);
       Get.lazyPut(() => UsersController(), fenix: true);
+    }
+    if(LocalSource.getInstance().isAdmin() || LocalSource.getInstance().isOwner()){
+      Get.lazyPut(() => AdminController(), fenix: true);
     }
     if (!LocalSource.getInstance().isAdmin()) {
       Get.lazyPut(() => SearchController(), fenix: true);

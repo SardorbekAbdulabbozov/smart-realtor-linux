@@ -18,9 +18,11 @@ class LoginController extends BaseController {
 
   bool obscure = true;
   bool isLogin = true;
+  bool isOwner = false;
   bool gender = true;
 
   TextEditingController usernameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -32,7 +34,12 @@ class LoginController extends BaseController {
     update();
   }
 
-  void clearTextFields(){
+  void switchOwnerMode(bool value) {
+    isOwner = value;
+    update();
+  }
+
+  void clearTextFields() {
     usernameController.clear();
     emailController.clear();
     passwordController.clear();
@@ -91,11 +98,12 @@ class LoginController extends BaseController {
           username: result.username,
           sessionToken: result.sessionToken,
           gender: result.gender,
+          isOwner: result.isOwner,
+          phone: result.phone,
           isEmailVerified: result.emailVerified,
-          isAdmin: (result.email??"").contains("@smart.realtor.com"),
+          isAdmin: (result.email ?? "").contains("@smart.realtor.com"),
         ),
       );
-      // _repository.verifyEmail(email: result.email ?? '');
       setLoading(false);
       Get.toNamed(AppRouteNames.MAIN);
       clearTextFields();
@@ -110,7 +118,8 @@ class LoginController extends BaseController {
     if (usernameController.text.isEmpty ||
         (passwordController.text.isEmpty ||
             passwordController.text.length < 8) ||
-        emailController.text.isEmpty) {
+        emailController.text.isEmpty ||
+        phoneController.text.isEmpty) {
       List<String> errorMessage = [];
       if (usernameController.text.isEmpty) {
         errorMessage.add('username');
@@ -120,6 +129,9 @@ class LoginController extends BaseController {
       }
       if (passwordController.text.isEmpty) {
         errorMessage.add('password');
+      }
+      if (phoneController.text.isEmpty) {
+        errorMessage.add('phone');
       }
       if (passwordController.text.length < 8) {
         errorMessage.add('longer password (min. 8 characters)');
@@ -134,6 +146,8 @@ class LoginController extends BaseController {
       password: passwordController.text,
       email: emailController.text,
       gender: gender,
+      phone: phoneController.text,
+      isOwner: isOwner,
     );
     if (resultOne is SignUpResponse) {
       if ((resultOne.sessionToken ?? '').isNotEmpty) {
@@ -146,8 +160,10 @@ class LoginController extends BaseController {
               username: result.username,
               sessionToken: result.sessionToken,
               gender: result.gender,
+              isOwner: result.isOwner,
+              phone: result.phone,
               isEmailVerified: result.emailVerified,
-              isAdmin: (result.email??"").contains("@smart.realtor.com"),
+              isAdmin: (result.email ?? "").contains("@smart.realtor.com"),
             ),
           );
           setLoading(false);
@@ -155,7 +171,6 @@ class LoginController extends BaseController {
           clearTextFields();
           showSuccessSnackBar(
               message: 'You have successfully signed up in SmartRealtor');
-
         } else {
           setLoading(false);
           showErrorSnackBar('Something went wrong! :(');
