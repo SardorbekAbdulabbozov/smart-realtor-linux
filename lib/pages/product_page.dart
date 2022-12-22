@@ -308,7 +308,7 @@ class ProductPage extends StatelessWidget {
                                         icon: logic.isFavourite
                                             ? Icons.favorite_rounded
                                             : Icons.favorite_border_rounded,
-                                        onPressed: logic.toggleFavouriteButton,
+                                        onPressed: ()=>logic.trySocket('Sardorbek\n'),
                                       ),
                                     ),
                                   ],

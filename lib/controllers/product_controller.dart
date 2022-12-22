@@ -68,6 +68,10 @@ class ProductController extends BaseController {
     update();
   }
 
+  Future<void> trySocket(String msg)async{
+    socket?.write(msg);
+  }
+
   Future<void> toggleFavouriteButton() async {
     if (hive.productsBox.containsKey(product?.objectId ?? '')) {
       isFavourite = false;
