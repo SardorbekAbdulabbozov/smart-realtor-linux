@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:my_home/data/repository/product_repository.dart';
@@ -14,6 +17,8 @@ class ProductController extends BaseController {
   int imageIndex = 0;
   bool isFavourite = false;
   bool isVisitAppointed = false;
+  Socket? socket;
+  String? data;
   String? appointedTime;
   List<Visit>? allVisitors = [];
 
@@ -29,7 +34,33 @@ class ProductController extends BaseController {
   @override
   void onReady() async {
     super.onReady();
+    await connect();
     await checkAppointment();
+  }
+
+  Future<bool> connect() async {
+    try {
+      log("########## started");
+      socket = await Socket.connect(
+          '37.110.211.29',  //define server ip address
+          8000,
+          timeout: const Duration(seconds: 10)
+      );
+      log('########## connected');
+
+      // listen to the received data event stream
+      socket!.listen((List<int> event) {
+        data = "";
+        log("########## Result is empty: ${event.isEmpty}");
+        data = String.fromCharCodes(event);
+        log("########## Response data: $data");
+      });
+      return true;
+    } catch(error, stackTrace) {
+      log(error.toString());
+      log(stackTrace.toString());
+      return false;
+    }
   }
 
   void changeImageIndex(int index) {
