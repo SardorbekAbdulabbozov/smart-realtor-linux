@@ -140,23 +140,7 @@ class AdminPage extends StatelessWidget {
                                   AppConstants.verticalDividerForHeader,
                                   TableItem(
                                     width: width * 0.16,
-                                    title: (logic.products[i].address ?? '')
-                                            .isNotEmpty
-                                        ? (logic.products[i].address ?? '')
-                                                    .split(', ')
-                                                    .length >=
-                                                2
-                                            ? (logic.products[i].address ?? '')
-                                                .split(', ')[1]
-                                            : (logic.products[i].address ?? '')
-                                                        .split(', ')
-                                                        .length ==
-                                                    1
-                                                ? (logic.products[i].address ??
-                                                        '')
-                                                    .split(', ')[0]
-                                                : 'Undefined'
-                                        : 'Undefined',
+                                    title: [(logic.products[i].district),(logic.products[i].region)].join(' distirct,\n'),
                                   ),
                                   AppConstants.verticalDividerForHeader,
                                   TableItem(
